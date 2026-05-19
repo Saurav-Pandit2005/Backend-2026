@@ -1,0 +1,128 @@
+** Node.js
+------------
+
+-> JavaScript Runtime Environment
+-> It is used for server side programming
+
+-> Node.js is not a langauge, lirary or framework.
+-----------------------------------------------------
+
+** Node REPL (READ, EVALUATE, PRINT, LOOP)
+-------------------------------------------
+
+-> Node Start Command                              ------> node
+-> Node global Command to show overall node things ------> global
+-> Node help command                               ------> .help
+----------------------------------------------------------------
+
+** Node Files
+---------------
+
+-> Go to same folder and type node filname.js for run that file.
+----------------------------------------------------------------
+
+** Process in Node
+-------------------
+-> Process : This object provides information about, and control over, the current Node.js process.
+
+    * Some Commands in Process *
+    -> To Enter Process -------------------> process
+    -> To Check version -------------------> process.version
+    -> To check about node pprocess -------> process.release
+    -> To check Current Working Folder ----> process.cwd()
+
+-> Process.argv : return an array containing the command-line argument passed whrn the Node.js process was launched.
+
+    * Some Commands in Process *
+    -> To Enter Process argv -------------------> process.argv
+    -> if u want add command line argument so when u run file using node then add your argument.
+    -> example : D:\Backend 2026\Node js>node script.js saurav shhubham (here saurav and shubham are command line argument).
+----------------------------------------------------------------------------------------------------------------------------
+
+** Exports in file
+-----------------------
+
+-> module.exports & requiring files
+
+-> require() : abuilt-in function to include external modules that exist in seprate files.
+
+(if u want some other thing in your file from other files so u can use require function).
+example : const value = require("./math");
+          console.log(value);
+
+-> module.exports : a special object
+
+(if u want export some thing to require other files that value or etc so u can exports to your file using module.exports).
+
+example : 
+-----------------------------
+const sum = (a,b) => a+b;
+const mul = (a,b) => a*b;
+
+const pai = 3.14;
+const g = 9.8;
+
+// module.exports = '123740';
+
+module.exports = {
+    sum : sum,
+    mul : mul, 
+    g : g,
+    pai : pai,
+};
+-----------------------------------------------------------------------------------------------------------------------------
+
+** Exports in Directories
+
+-> if u have one folder like Fruits and inside that apple.js, banana.js, orange.js, index.js.
+-> so first u need to export apple.js, banana.js, orange.js.
+-> then u require all three files in index.js.
+-> after this finally u need to require index.js in your script.js file and u require the data from other directories.
+-----------------------------------------------------------------------------------------------------------------------------
+
+** NPM (Node Package Manager)
+-------------------------------------
+-> npm is the standard package manager for Node.js
+1) library of packages
+2) command line tool
+-------------------------------------------------------------
+
+** Installing packages
+--------------------------
+
+-> npm install <- package name ->
+
+-> node_modules : The node_modules folder contains every installed dependency for your project.
+
+-> package-lock.json : it records the exact version of every installed dependency, including its sub-dependencies and their versions.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+** package.json
+---------------------
+
+-> The package.json file contains descriptive and functional metadata about a project, such as a name, version, and dependencies.
+
+-> If u don't have package.json so comand is ----------> npm init
+-> If u have package.json but node_modules is deleted then run this commmand -----------> npm install 
+-----------------------------------------------------------------------------------------------------------------------------------
+
+** Local v/s Global Installation
+-------------------------------------
+
+-> Global : npm install -g <- package name ->
+-> Local :  npm link <- package name ->
+-------------------------------------------------------
+
+** import modules (require v/s import)
+----------------------------------------
+
+import {sum} from "./math.js"
+
+-> We can't selective load only the pieces we need with require nut with import,
+   we can selective load only the pieces we need, which can save memory.
+
+-> Loading is synchronous for 'require' but can be asynchronous for 'import'.
+
+-> If u are using import-export then first u add line in package.json ------> "type" : "module"
+
+-----------------------------------------------------------------------------------------------------
