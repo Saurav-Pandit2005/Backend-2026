@@ -1,0 +1,128 @@
+** What is Express?
+--------------------------
+
+* Library v/s Framework * 
+
+-> Library : A library is a collection of pre-written code that can be used to perform specific tasks.
+-> eg : axios
+
+-> Framework : A framework is a set of pre-written code that provides a structure for developing software applications.
+-> eg : express
+
+
+** Express 
+--------------
+
+-> A Node.js web application framework that helps us to make web application
+-> it is used for server side programming
+
+    * Some Works related to Express * 
+    1) listen for incoming request
+    2) request parse
+    3) match response with routes
+    4) According to request send valid response
+----------------------------------------------------------------------------------
+
+** Getting Started with Express
+----------------------------------
+
+-> for express start some code are pre requirement to start the server and connect with the server.
+
+Example :
+
+const express = require("express");
+const app = express();
+
+let port = 3000;
+
+app.listen(port, () => {
+    console.log(`app listen on port ${port}`);
+})
+-------------------------------------------------------
+
+-> Ports are the logical endpoints of a network connection that is used to exchange  information between a web server anf a web client.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+** Handling request
+-------------------------
+
+-> if u want to handle upcoming request so u can use app.use
+---------------------------------------------------------------
+
+-> app.use 
+
+    Example :
+    
+    app.use((req, res) => {
+        console.log("new upcoming request");
+    });
+------------------------------------------------------------------------------
+
+** Sending a Response
+-------------------------
+
+-> for send a response u can use res.send("Your Response");
+-> u can any type of response in your response section.. like , String, json, HTMl etc.
+------------------------------------------------------------------------------------------
+
+** Routing
+--------------
+
+-> it is process of selecting a path for traffic in anetwork or between or across multiple netwirks.
+
+Example : 
+
+    app.get("/apple", (req, res) => {
+        res.send({
+            name : "apple",
+            color : "red",
+        });
+    });
+
+-> there are multiple types of routing. 
+    like, (get, post, put, fatch)
+---------------------------------------------------------------------------------------------------------
+
+** Installing Nodemon
+-------------------------
+
+-> To automatic restart server with code changes
+
+-> Install Command --------> npm install nodemon
+
+-> Start Server Command ---> npx nodemon index.js (local)
+                        ---> nodemon index.js (global)
+--------------------------------------------------------------------------
+
+** Path Parameters
+----------------------
+
+-> Path Parameters means in your request contains some values like username or id in that path so u can use path Parameters for that.
+
+-> it used like req.params (params -> Parameter)
+
+Example : 
+     
+    app.get("/ig/:username", (req, res) => {
+        let {username} = req.params;
+        res.send(`This account belongs to @${username}`);
+    });
+--------------------------------------------------------------------------------------------------------------------------------------
+
+** Query Strings
+---------------------
+
+-> if we passed some more things in url(path) so that is called Query Strings
+-> and we handle that things using req.query
+
+Example : 
+
+    app.get("/searched", (req, res) => {
+        let {q} = req.query;
+        if(!q) {
+            res.send("nothing searched");
+        }
+        res.send(`These are the results for: ${q}`);
+    });
+    
+--------------------------------------------------------------------------------------------------------------------------------------
