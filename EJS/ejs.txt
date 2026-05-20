@@ -1,0 +1,251 @@
+** What is Templating?
+-------------------------
+
+-> EJS (Embedded JavaScript templates)
+
+-> To make HTML dynamic. 
+
+-> EJS is a simple templating that lets you generate HTML markup with plain JavaScript.
+-----------------------------------------------------------------------------------------
+
+** Using EJS
+-----------------
+
+-> for using ejs first we set the view engine (template engine) for that ejs files.
+
+-> normally we use ejs for rendering files one location to another location.
+
+Example : 
+
+    app.set("view engine", "ejs");
+
+    app.get("/", (req, res) => {
+        res.render("home.ejs");
+    });
+
+-----------------------------------------------------------------------------------------
+
+=> this view engine means we searched views folder in our main folder..
+
+=> sometimes we failed to search views folder path so for that we use path.join(__dirname) to finding that path.
+
+Example : 
+
+    const path = require("path");   --------------> Require tha path
+
+    app.set("views", path.join(__dirname, "/views"));     ------> Set the views directory path.
+-----------------------------------------------------------------------------------------------------------------
+
+** Interpolation Syntax
+---------------------------
+
+-> Interpolation refers to embedding expressions into marked up text.
+
+-> like that we normally not perfrom arithmatic expression in html tag but using ejs tags we can able to do it...
+
+-> not arithmatic but diffrent different some programms..
+
+==> EJS Tags 
+
+    <% 'Scriptlet' tag, for control-flow, no output
+    <%_ ‘Whitespace Slurping’ Scriptlet tag, strips all whitespace before it
+    <%= Outputs the value into the template (HTML escaped)
+    <%- Outputs the unescaped value into the template
+    <%# Comment tag, no execution, no output
+    <%% Outputs a literal '<%'
+    %> Plain ending tag
+    -%> Trim-mode ('newline slurp') tag, trims following newline
+    _%> ‘Whitespace Slurping’ ending tag, removes all whitespace after it
+
+Example : 
+
+    <h1>This is the home page</h1>
+    <h3> <%=  100 * 2541 %></h3>
+-------------------------------------------------------------------------------------------------------------------
+
+** Passing data to EJS
+----------------------------
+
+-> in real project basically we fatch data from database so we need to perform passinfg that data to EJS file,
+
+Example : 
+
+    => index.js
+    ---------------
+
+    app.get("/rolldice", (req, res) => {
+        let diceValue = Math.floor(Math.random() * 6) + 1;
+        res.render("rolldice.ejs", {diceValue});
+    });
+
+    => rolldice.ejs
+    ------------------
+
+    <h1>Dice gave value : <%= diceValue %></h1>
+-----------------------------------------------------------------------------------------------------------------
+
+** Instagram EJS
+------------------
+
+-> create a basic template for instagram page based on following route 
+
+    /ig/:username
+
+-> Just a normal Example of ejs templating.
+
+Example : 
+
+    => index.js
+    --------------
+
+    app.get("/ig/:username", (req, res) => {
+        let {username} = req.params;
+        res.render("instagram.ejs", {username})
+    });
+
+    => instagram.ejs
+    ------------------
+
+    <h1>This page is belongs to @<%= username %></h1>
+    <button>Follow</button>
+    <button>Message</button>
+----------------------------------------------------------------------------------
+
+** Conditional Statement
+------------------------------
+
+-> Adding conditions inside EJS
+
+-> To add condition in EJS use this tag ---------> <% %>
+
+Example :
+
+    <% if(diceValue == 6){ %>
+    <h2>Nice ! Roll dice again.</h2>        
+    <% } %>
+----------------------------------------------------------------------------------
+
+** Loops
+------------
+
+->To add looping in EJS use this tag ---------> <% %>
+
+Example : 
+
+    => index.js
+    -------------
+
+    app.get("/ig/:username", (req, res) => {
+        let followers = ["srv__2.0", "loco_x.7", "lockxz_00"]
+        let {username} = req.params;
+        res.render("instagram.ejs", {username, followers})
+    });
+
+    => instagram.ejs
+    -------------------
+
+    <% for(let name of followers) { %>
+    <li> <%= name %></li>
+    <% } %>
+-----------------------------------------------------------------------------------
+
+** Instagram page with EJS
+-----------------------------
+
+-> here i am implemented small project using api + ejs for instagram account using data.json file.
+
+Example :
+
+    => index.ejs
+    ----------------
+
+    app.get("/ig/:username", (req, res) => {
+        let {username} = req.params;
+        const instaData = require("./data.json");
+        const data = instaData[username];
+        if(data){
+            res.render("instagram.ejs", {data});
+        }
+        else{
+            res.render("error.ejs");
+        }
+    });
+
+
+    => instagram.ejs
+    -------------------
+
+    <h1>This page is belongs to @<%= data.name %></h1>
+    <button>Follow</button>
+    <button>Message</button>
+
+    <p>
+        Followers : <%= data.followers %> &nbsp; &nbsp; &nbsp;
+        Following : <%= data.following %>
+    </p>
+
+    <hr>
+    <% for (let post of data.posts){ %>
+        <img src=" <%= post.image %>" alt="some img">
+        <p>
+            Likes : <%= post.likes %> &nbsp; &nbsp; &nbsp;
+            Comment : <%= post.comment %>
+        </p>
+    <% } %>
+-------------------------------------------------------------------------------------------
+
+** serving static files
+---------------------------
+
+-> if we serve code + css and js file so we use to static serving file approch
+
+-> this is similar to views directory.
+
+/*  Some Steps to follow that task */ 
+--------------------------------------
+
+app.use(express.static(folder_name))
+
+app.use(express.static(path.join(__dirname, "/public/css or /js)));
+---------------------------------------------------------------------------------
+
+** Includes
+-----------------
+
+-> this a technique to create a subtemplate.
+
+-> <%- include("includes/head.ejs");
+
+Example : 
+
+    => if we are creating one file head.ejs inside includes folder.
+    => and containt is....
+
+    -> includes/head.ejs
+    -----------------------
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Instagram</title>
+            <link rel="stylesheet" href="/style.css">
+        </head> 
+
+    => we can user multiple places this code just only one line..
+
+        <%- include("includes/head.ejs");
+
+    -> error.ejs 
+    ---------------
+
+        <%- include ("includes/head.ejs") %>
+        <body>
+            <h1>No Such Account !</h1>
+        </body>
+        </html>
+
+    => this code is working fine.. not any error.
+
+--------------------------------------------------------------------------------------------------------------
