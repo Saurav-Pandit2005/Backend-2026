@@ -1,0 +1,164 @@
+** What is Database?
+-------------------------
+
+-> it is a collection of data in a fromat that can be easily accessed.
+
+==> Why databases?  
+
+    -> can store large data
+    -> features like security, scalability etc.
+    -> Easier to insert, update or delete data
+
+----------------------------------------------------------------------------
+
+** SQL v/s NoSQL
+-----------------------
+
+-> SQL
+--------
+
+    -> Relational Database (data stored in Tables)
+    -> Example : MySQL, Oracle, PostreSQL etc.
+
+-> NoSQL
+----------
+
+    -> Non Relational Database (data stored in document/key-val/graphs etc.)
+    -> Example : MongoDb, Cassandra, Neo4j etc.
+
+---------------------------------------------------------------------------------
+
+** What is SQL?
+-----------------
+
+-> SQL (Structured Query Language)
+-> SQL is a programming language used to interact with relational databases.
+
+------------------------------------------------------------------------------------
+
+** Table in SQL
+-------------------
+
+    -> Columns -----> design(schema)
+    -> rows    -----> tuple
+
+------------------------------------------
+
+** First Database
+---------------------
+
+    /* Some Basic Command */
+    --------------------------
+        -> CREATE DATABASE db_name;
+        -> DROP DATABASE db_name;
+        -> USE db_name;
+
+--------------------------------------------
+
+** First Table
+-----------------
+
+    CREATE TABLE table_name(
+        column_name1 datatype constraint,
+        column_name2 datatype constraint,
+        column_name3 datatype constraint,
+    );
+    --------------------------------------
+
+    Example :
+
+    CREATE TABLE student(
+        roll_no int,
+        name varchar(50),
+        age int
+    );
+
+-----------------------------------------------------------
+
+** Database Queries
+----------------------
+
+    -> CREATE DATABASE db_name;
+    -> CREATE DATABASE IF NOT EXISTS db_name;
+
+    -> DROP DATABASE db_name;
+    -> DROP DATABASE IF EXISTS db_name;
+
+    -> SHOW DATABASES;
+    -> SHOW TABLES;
+
+-------------------------------------------------------------
+
+** CREATE Table
+------------------
+
+=> Table Queries : Create, Insert, Update, Alter, Truncate, delete
+--------------------------------------------------------------------
+
+    1) CREATE TABLE (define a schema/columns for that table)
+    ---------------------------------------------------------
+
+    CREATE TABLE table_name(
+        column_name1 datatype constraint,
+        column_name2 datatype constraint,
+    );
+    ------------------------------------------------------------
+
+    ** data Types (Mostly Used)
+    ----------------------------
+
+    -> CHAR, VARCHAR, INT, TINYINT, FLOAT
+
+    ** What are Constraints?
+    -------------------------
+
+    -> Rules for data in the table
+
+    NOT NULL  ------->  columns cannot have a null value
+    UNIQUE    ------->  all values in column are different
+    DEFAULT   ------->  sets the default value of a column
+    CHECK     ------->  it can limit the value allowed in a column
+
+    Examples : 
+    ------------
+
+    ==> salary INT DEFAULT 20000;
+
+    ==> CONSTRAINT age_check CHECK (age >= 18 AND city="Delhi")
+
+    ------------------------------------------------------------------------
+
+    ** key Constraints
+    --------------------
+
+    -> PRIMARY KAY
+
+    -> FOREIGN KEY
+
+    --------------------------------------------------------------------
+
+    2) INSERT INTO TABLE
+    ----------------------
+
+    INSERT INTO table_name
+    (column_name1, column_name2)
+    values
+    (col1_v1, col2_v1),
+    (col1_v2, col2_v2);
+
+    --------------------------------------------
+
+    ** SELECT Command
+    --------------------
+
+    -> Selects & Show data from yhe DB
+
+    Syntax : SELECT col, col FROM table_name;
+
+    Syntax(to show all) : SELECT * FROM table_name;
+
+    ----------------------------------------------------
+
+    
+
+    
