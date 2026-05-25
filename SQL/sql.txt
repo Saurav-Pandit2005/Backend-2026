@@ -128,12 +128,44 @@
 
     ------------------------------------------------------------------------
 
+    ** What are Keys?
+    ------------------
+
+    -> Keys are special columns in the table.
+
+    => Primary Key 
+    ---------------- 
+
+        -> It is a column (or set of columns) in a table that identid=fiers each roe.(a unique id)
+        -> There is only 1PK & it should be NOT null.
+
+    => Foreign Key
+    ---------------
+
+        -> A Foreign key is a column (or set of columns) in a table that refers to the primary key in another table.
+        -> FKs can have duplicate & null values.
+        -> There can be multiple FKs.
+
+    ------------------------------------------------------------------------------------------------------------------
+
     ** key Constraints
     --------------------
 
-    -> PRIMARY KAY
+    -> PRIMARY KEY : makes a column unique & not null but used only for one
 
-    -> FOREIGN KEY
+        CREATE TABLE temp(
+            id INT not null,
+            PRIMARY KEY (id)
+        );
+
+    --------------------------------------------------------------------------    
+
+    -> FOREIGN KEY : prevent actions that would destroy links between Tables
+
+        CREATE TABLE temp(
+            cust_id int,
+            FOREIGN KEY (cust_id) refrences customer(id)
+        );
 
     --------------------------------------------------------------------
 
@@ -159,6 +191,181 @@
 
     ----------------------------------------------------
 
+    ** Where Clause
+    -----------------
+
+    -> To define some conditions
+
+    SELECT col1, col2 FROM table_name WHERE conditions;
+    ------------------------------------------------------
+
+    ** Operators in Where Clause
+    ------------------------------
+
+    => Arithmatic Operators : +,-,*,/,%
+    => Comparison Operators : =,!=,>,<,>=,<=
+    => Logical Operators : AND, OR, NOT, IN, BETWEEN, ALL, LIKE, ANY
+    => Bitwise Operators : &(Bitwise AND), |(Bitwise OR)
+    -------------------------------------------------------------------
+
+    ** Frequantly Used Operators
+    ------------------------------
+
+    -> AND (to check for both conditions to be true)
+    -> OR (to check for one of the conditions to be true)
+    -> BETWEEN (selects sor a given range)
+    -> IN (matches any value in the list)
+    -> NOT (to negate the given condition)
+    -----------------------------------------------------------
+
+    ** LIMIT Clause
+    -------------------
+
+    -> Sets an upper limit on  number of (tuples) rows to be returned.
+
+    Example : 
+    ----------
+
+        SELECT col1, col2 FROM table_name LIMIT number;
+
+    ------------------------------------------------------------------------
+
+    ** Order by Clause
+    --------------------
+
+    -> TO sort in ascending (ASC) or descending order (DESC)
+
+    Example : 
+    ----------
+
+        SELECT col1, col2 FROM table_name ORDER BY col_name(s) ASC;
+
+    --------------------------------------------------------------------------
+
+    ** Agreegate function
+    -----------------------
+
+    -> Agreegate functions perform a calculation on a set of values, and return a single value.
+
+    => COUNT()
+    => MAX()
+    => MIN()
+    => SUM()
+    => AVG()
+
+    Example :
+    -----------
+
+        SELECT max(marks) FROM student;
+
+    --------------------------------------------------------------------------------------------------
+
+    ** Group By Clause
+    --------------------
+
+    -> Groups rows that have the same values into summary rows.
+    -> It collects data from multiple records and Groups the result by one or more column.
+
+    Example :
+    -----------
+
+        SELECT col1, col2 FROM table_name GROUP BY col_name(s);
+
+    -> * Generally we use Group bu with some aggregation function.
+
+    ------------------------------------------------------------------------------------------------
+
+    ** Having Clause
+    -------------------
+
+    -> Similar to Where i.e. applies some condition on rows.
+    -> But it is used when we want to apply any condition after grouping.
+
+    Example :
+    ----------
+
+        SELECT col1, col2 FROM table_name GROUP BY col_name(s) HAVING condition;
+
+    -> * WHERE is for the table, HAVING is for a Group
+    -> * Grouping is necessary for HAVING
+
+    -------------------------------------------------------------------------------------
+
+    ** General Order
+    ------------------
+
+    SELECT column(s)
+    FROM table_name
+    WHERE condition
+    GROUP BY column(s)
+    HAVING condition
+    ORDER BY column(s) ASC;
+
+    ----------------------------------
+
+    3) Update Table
+    -------------------------
+
+    -> Update (to update existing rows)
     
+    -> UPDATE table_name SET col1 = val1, clo2 = val2 WHERE condition;
+
+    => * Note : if u perform forst time update query in MySQL so u want to run this command..
+
+        -> SET SQL_SAFE_UPDATES = 0;
+
+    ---------------------------------------------------------------------------------------------
+
+    4) Delete Table
+    ------------------
+
+    -> Delete (to delete existing rows)
+
+    -> DELETE FROM table_name WHERE condition;
+
+    --------------------------------------------------
+
+    5) Alter Table
+    --------------------
+
+    -> Alter (to change the schema)
+
+    => ADD Columns
+    ---------------
+
+    ALTER TABLE table_name ADD COLUMN column_name datatype constraint;
+
+    => DROP Column
+    ------------------
+
+    ALTER TABLE table_name DROP COLUMN column_name;
+
+    => RENAME Table
+    ------------------
+
+    ALTER TABLE table_name RENAME TO new_table_name;
+
+    => CHANGE Column (rename)
+    ----------------------------
+
+    ALTER TABLE table_name CHANGE COLUMN old_name new_name new_datatype new_constrint;
+
+    => MODIFY Column (modify datatype / constraint)
+    -------------------------------------------------
+
+    ALTER TABLE table_name MODIFY col_name new_datatype new_constrint;
+
+    --------------------------------------------------------------------------------------------
+
+    6) TRUNCATE Table
+    --------------------
+
+    -> Truncate (to delete table's data)
+
+    -> TRUNCATE TABLE table_name;
+
+------------------------------------------------------------------------------------------------------------
+
+
 
     
