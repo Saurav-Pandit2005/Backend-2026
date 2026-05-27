@@ -1,0 +1,238 @@
+** Using Faker
+----------------------
+
+-> Faker is Package that generate fake data using their package.
+
+    Command : npm i faker-js/faker
+-----------------------------------------------------------------
+
+** MySQL2 Package
+---------------------
+
+-> To connect Node with MySQL2
+
+    connection.end();   // to close connection
+
+-> Require the MySQL2 Package from npm
+-----------------------------------------
+
+    const mysql = require("mysql2");
+
+    const connection = mysql.createConnection({
+        host : 'localhost',
+        user : 'root',
+        database : 'new_app',
+        password : 'mysql@123'
+    });
+
+-> Then Perform your tasks.
+-----------------------------------------------------------------
+
+** Using SQL from CLI
+--------------------------
+
+-> if u want to run mysql in terminal so follow this steps :
+
+    1) type in terminal : cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
+                          .\mysql.exe -u root -p
+
+    2) Enter ur password :
+
+    3) perform commands
+
+-> Create schema.sql
+-> source schema.sql    // in CLI
+-----------------------------------------------------------------------------------------------------
+
+** CREATE Table user
+-----------------------
+
+    CREATE TABLE user(
+        id VARCHAR(50) PRIMARY KEY,
+        username VARCHAR(50) UNIQUE,
+        email VARCHAR(50) UNIQUE NOT NULL,
+        password VARCHAR(50) NOT NULL
+    );
+
+    Example :
+    ----------
+
+    -> Check this code.
+
+    let q = "SHOW TABLES";
+
+    try{
+        connection.query(q, (err, results) => {
+            if(err) throw err;
+            console.log(results);
+            console.log(results.length);
+            console.log(results[0]);
+            console.log(results[1]);
+        });
+    } catch {
+        console.log(err);
+    }
+--------------------------------------------------------------------
+
+** INSERT INTO user
+--------------------------
+
+    Example : -> Using index.js we INSERT the daat into database.
+    -----------------------------------------------------------------
+
+    
+    let q = "INSERT INTO user (id, username, email, password) VALUES ?";
+
+    let users = [
+        ["2005", "saurav", "spandit@gmail.com", "9033386459"],
+        ["2002", "gaurav", "goandit@gmail.com", "222155485"],
+    ];
+
+    try {
+        connection.query(q, [users], (err, result) => {
+            if(err) throw err;
+            console.log(result);
+        });
+    } catch (err) {
+    console.log(err);
+    }
+
+    connection.end();
+
+--------------------------------------------------------------------------------
+
+** INSERT into Bulk
+--------------------------
+
+    Example :
+    -------------
+
+        -> Using faker INSERT 100 users data into daatbase..
+           --------------------------------------------------
+
+        let getRandomUser = () => {
+        return [
+            faker.string.uuid(),
+            faker.internet.username(),
+            faker.internet.email(),
+            faker.internet.password(),
+        ];
+        }
+
+        let q = "INSERT INTO user (id, username, email, password) VALUES ?";
+
+        let data = [];
+
+        for(let i=1; i<=100; i++){
+        data.push(getRandomUser());   //100 fake user data
+        }
+
+        try {
+        connection.query(q, [data], (err, result) => {
+            if(err) throw err;
+            console.log(result);
+        });
+        } catch (err) {
+        console.log(err);
+        }
+
+        connection.end();
+
+----------------------------------------------------------------------------
+
+** Routing
+---------------
+
+    -> We can use REST API for this Routing.
+
+    Example : 
+    ---------
+
+        GET/            -> show no of users in DB.
+        GET/user        -> show users (email, id, username).
+        PATCH/user/:id  -> username edit.
+        POST/user       -> new user enter.
+        DELETE/user/:id -> user delete
+
+---------------------------------------------------------------------------
+
+** Home Route
+---------------------
+
+    -> Setting up Express new_app
+    ---------------------------------
+
+        GET/  : Fetch & show total number of users on our new_app
+
+        Example :
+        ---------
+
+            app.get("/", (req, res) => {
+            let q = `SELECT count(*) FROM user`;
+            try {
+                connection.query (q, (err, result) => {
+                if(err) throw err;
+                console.log(result[0]["count(*)"]);
+                res.send("success");
+                });
+            } catch (err) {
+                console.log(err);
+                res.send("some error in database")
+            }
+            });
+
+-------------------------------------------------------------------------------------------------
+
+** Add Template
+------------------
+
+    -> Using ejs we try to show number of users in screen.
+
+    -> api page
+    -------------
+
+        app.get("/", (req, res) => {
+        let q = `SELECT count(*) FROM user`;
+        try {
+            connection.query (q, (err, result) => {
+            if(err) throw err;
+            let count = result[0]["count(*)"];
+            res.render("home.ejs",{count});
+            });
+        } catch (err) {
+            console.log(err);
+            res.send("some error in database")
+        }
+        });
+
+        app.listen(port, () => {
+        console.log(`server at listing to ${port}`)
+        });
+    ----------------------------------------------------------------------
+
+        -> home.ejs
+        ---------------
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Home Page</title>
+        </head>
+        <body>
+            <h2>Total number of users are : <%= count %></h2>
+            <button>Join us today!</button>
+        </body>
+        </html>
+
+-------------------------------------------------------------------------------------------------
+
+** Show Route
+-------------------
+
+
+
+
+
+
